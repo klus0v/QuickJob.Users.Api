@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>Users.Service</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\QuickJob.Users.DataModel\QuickJob.Users.DataModel.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Schick.Keycloak.RestApiClient" Version="20.0.3" />
+      <PackageReference Include="Vostok.Configuration.Abstractions" Version="0.1.15" />
+      <PackageReference Include="Vostok.Logging.Abstractions" Version="1.0.30" />
+    </ItemGroup>
+
+</Project>
