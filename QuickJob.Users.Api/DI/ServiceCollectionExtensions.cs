@@ -75,7 +75,8 @@ internal static class ServiceCollectionExtensions
 
     public static void AddSystemServices(this IServiceCollection services) => services
         .AddDistributedMemoryCache()
-        .AddSingleton<IAuthService, AuthService>();
+        .AddSingleton<IAuthService, AuthService>()
+        .AddSingleton<IRegistrationService, RegistrationService>();
 
     public static void AddExternalServices(this IServiceCollection services)
     {
@@ -83,7 +84,9 @@ internal static class ServiceCollectionExtensions
             .AddSingleton<ILog>(new CompositeLog(new ConsoleLog(), new FileLog(new FileLogSettings())));
         services
             .AddSingleton<KeycloakFactory>()
-            .TryAddSingleton(x => x.GetRequiredService<KeycloakFactory>().GetClient());
+            .AddSingleton(x => x.GetRequiredService<KeycloakFactory>().GetHttpClient())
+            .AddSingleton(x => x.GetRequiredService<KeycloakFactory>().GetUsersClient())
+            .AddSingleton(x => x.GetRequiredService<KeycloakFactory>().GetUserClient());
         services
             .AddSingleton<SmtpClientFactory>()
             .TryAddSingleton(x => x.GetRequiredService<SmtpClientFactory>().GetClient());

@@ -1,7 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using QuickJob.Users.DataModel.Configuration;
+using Users.Service.Extensions;
 using Users.Service.Services;
+using IConfigurationProvider = Vostok.Configuration.Abstractions.IConfigurationProvider;
 
 namespace Users.Api.Controllers;
 
@@ -36,13 +39,15 @@ public class AuthController : ControllerBase
         return Ok(refreshResult);
     }
 
-    [Authorize]
     [HttpPost("logout")]
-    public Task<IActionResult> Logout()
+    public async Task<IActionResult> Logout()
     {
-        throw new NotImplementedException();
+        var userId = User.GetId();
+        if (userId is not null)
+            await authService.Logout(userId);
+        DeleteCookie(RefreshTokenKey);
+        return Ok();
     }
-
 
     private void SetCookie(string key, string value, bool httpOnly = true)
     {
@@ -64,4 +69,7 @@ public class AuthController : ControllerBase
         cookie = string.Empty;
         return false;
     }
+    
+    private void DeleteCookie(string key) => 
+        HttpContext.Response.Cookies.Delete(key);
 }

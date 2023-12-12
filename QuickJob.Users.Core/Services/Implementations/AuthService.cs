@@ -1,4 +1,5 @@
 using System.Net.Http.Headers;
+using FS.Keycloak.RestApiClient.Api;
 using Newtonsoft.Json.Linq;
 using QuickJob.Users.DataModel.Api.Responses.Auth;
 using QuickJob.Users.DataModel.Configuration;
@@ -12,20 +13,25 @@ public sealed class AuthService : IAuthService
 {
     private readonly ILog log;
     private readonly HttpClient httpClient;
+    private readonly IUserApi userApi;
     private readonly KeycloackSettings keycloackSettings;
 
-    public AuthService(ILog log, IConfigurationProvider configurationProvider)
+    public AuthService(ILog log, IConfigurationProvider configurationProvider, IUserApi userApi)
     {
         this.log = log;
+        this.userApi = userApi;
         httpClient = new HttpClient();
         keycloackSettings = configurationProvider.Get<KeycloackSettings>();
     }
 
-    public async Task<LoginResult> Login(string email, string password) => 
+    public async Task<LoginResponse> Login(string email, string password) => 
         new(await AuthUser(email, password));
 
     public async Task<AuthResponseBase> RefreshToken(string token) => 
         (await AuthUser(token: token)).Item1;
+
+    public async Task Logout(string userId) => 
+        await userApi.PostUsersLogoutByIdAsync(keycloackSettings.RealmName, userId);
 
     private async Task<Tuple<AuthResponseBase, string>> AuthUser(string? username = null, string? password = null, string? token = null)
     {
@@ -55,7 +61,7 @@ public sealed class AuthService : IAuthService
         if (!response.IsSuccessStatusCode)
         {
             log.Warn($" Login error for user: '{username}'");
-            throw new CustomException(jsonResult["error_description"]?.ToString() ?? "", (int)response.StatusCode);
+            throw new CustomException(jsonResult["error_description"]?.ToString() ?? "", 401);
         }
 
         log.Info($"User with email: '{username ?? "TOKEN"}' login");

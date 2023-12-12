@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using QuickJob.Users.DataModel.Api.Requests.Registration;
 using Users.Service.Services;
 
 namespace Users.Api.Controllers;
@@ -11,23 +12,26 @@ namespace Users.Api.Controllers;
 public class RegistrationController : ControllerBase
 {
     private readonly IRegistrationService registrationService; 
+    private readonly IAuthService authService; 
     
-    public RegistrationController(IRegistrationService registrationService)
+    public RegistrationController(IRegistrationService registrationService, IAuthService authService)
     {
         this.registrationService = registrationService;
+        this.authService = authService;
     }
     
     [HttpPost("request")]
-    public async Task<IActionResult> InitCreteUser([FromForm, Required, EmailAddress] string email, [FromForm, Required] string password)
+    public async Task<IActionResult> InitCreteUser([FromBody] InitCreateUserRequest initCreateUserRequest)
     {
-        var loginResult = await registrationService.InitCreteUser(email, password);
-        return Ok(loginResult);
+        await registrationService.InitCreateUser(initCreateUserRequest);
+        await authService.Login(initCreateUserRequest.Email, initCreateUserRequest.Password);
+        return Created("registration", null);
     }
-    
-    [HttpPost("confirm")]
-    public async Task<IActionResult> ConfirmCreteUser([FromForm, Required, EmailAddress] string email, [FromForm, Required] string password)
-    {
-        var loginResult = await registrationService.ConfirmCreteUser(email, password);
-        return Ok(loginResult);
-    }
+    //todo add email verification 
+    // [HttpPost("confirm")]
+    // public async Task<IActionResult> ConfirmCreteUser([FromForm, Required, EmailAddress] string email, [FromForm, Required] string password)
+    // {
+    //     var loginResult = await registrationService.ConfirmCreteUser(email, password);
+    //     return Ok(loginResult);
+    // }
 }

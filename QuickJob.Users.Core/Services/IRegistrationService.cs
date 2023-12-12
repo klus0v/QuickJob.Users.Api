@@ -1,7 +1,9 @@
+using QuickJob.Users.DataModel.Api.Requests.Registration;
+
 namespace Users.Service.Services;
 
 public interface IRegistrationService
 {
-    Task<object?> InitCreteUser(string email, string password);
+    Task InitCreateUser(InitCreateUserRequest initCreateUserRequest);
     Task<object?> ConfirmCreteUser(string email, string password);
 }

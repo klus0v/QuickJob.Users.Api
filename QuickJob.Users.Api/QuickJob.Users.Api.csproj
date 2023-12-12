@@ -13,7 +13,7 @@
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
         <PackageReference Include="MongoDB.Driver" Version="2.19.0" />
-        <PackageReference Include="Schick.Keycloak.RestApiClient" Version="20.0.3" />
+        <PackageReference Include="Schick.Keycloak.RestApiClient" Version="22.0.2" />
         <PackageReference Include="NSwag.AspNetCore" Version="13.18.2" />
         <PackageReference Include="Vostok.Configuration" Version="0.1.42" />
         <PackageReference Include="Vostok.Configuration.Abstractions" Version="0.1.15" />
