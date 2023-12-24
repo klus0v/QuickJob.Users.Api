@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickJob.Users.DataModel", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickJob.Users.Core", "QuickJob.Users.Core\QuickJob.Users.Core.csproj", "{DAFCD8FA-1EE0-4FF4-A0C0-F61C22BC3FED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickJob.Users.Client", "QuickJob.Users.Client\QuickJob.Users.Client.csproj", "{F84BAB24-6A9E-4C14-8E8D-FE2D6A1A93C6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{DAFCD8FA-1EE0-4FF4-A0C0-F61C22BC3FED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DAFCD8FA-1EE0-4FF4-A0C0-F61C22BC3FED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DAFCD8FA-1EE0-4FF4-A0C0-F61C22BC3FED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F84BAB24-6A9E-4C14-8E8D-FE2D6A1A93C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F84BAB24-6A9E-4C14-8E8D-FE2D6A1A93C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F84BAB24-6A9E-4C14-8E8D-FE2D6A1A93C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F84BAB24-6A9E-4C14-8E8D-FE2D6A1A93C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -18,9 +18,9 @@ public class UsersController : ControllerBase
     }
     
     [HttpGet("{userId}")]
-    public async Task<IActionResult> GetUser([FromForm, Required] string userId)
+    public async Task<IActionResult> GetUser(Guid userId)
     {
-        return Ok(await usersService.GetUser(userId));
+        return Ok(await usersService.GetUser(userId.ToString()));
     }
 
     [HttpGet]
