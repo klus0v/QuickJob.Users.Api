@@ -11,7 +11,7 @@ using Vostok.Logging.File.Configuration;
 using ConfigurationProvider = Vostok.Configuration.ConfigurationProvider;
 using IConfigurationProvider = Vostok.Configuration.Abstractions.IConfigurationProvider;
 
-namespace Users.Api.DI;
+namespace QuickJob.Users.Api.DI;
 
 internal static class ServiceCollectionExtensions
 {

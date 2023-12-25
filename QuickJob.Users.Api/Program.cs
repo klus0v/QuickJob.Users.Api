@@ -1,6 +1,6 @@
 using System.Text.Json;
 using Microsoft.AspNetCore.Diagnostics;
-using Users.Api.DI;
+using QuickJob.Users.Api.DI;
 
 const string FrontSpecificOrigins = "_frontSpecificOrigins";
 

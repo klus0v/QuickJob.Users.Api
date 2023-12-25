@@ -1,12 +1,11 @@
 using FS.Keycloak.RestApiClient.Api;
 using FS.Keycloak.RestApiClient.Authentication.Client;
 using FS.Keycloak.RestApiClient.Client;
-using FS.Keycloak.RestApiClient.Model;
 using QuickJob.Users.DataModel.Configuration;
 using ApiClientFactory = FS.Keycloak.RestApiClient.ClientFactory.ApiClientFactory;
 using IConfigurationProvider = Vostok.Configuration.Abstractions.IConfigurationProvider;
 
-namespace Users.Api.DI;
+namespace QuickJob.Users.Api.DI;
 
 internal class KeycloakFactory
 {

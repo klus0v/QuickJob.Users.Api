@@ -3,7 +3,7 @@ using System.Net.Mail;
 using QuickJob.Users.DataModel.Configuration;
 using IConfigurationProvider = Vostok.Configuration.Abstractions.IConfigurationProvider;
 
-namespace Users.Api.DI;
+namespace QuickJob.Users.Api.DI;
 
 internal class SmtpClientFactory
 {
