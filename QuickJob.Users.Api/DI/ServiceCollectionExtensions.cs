@@ -66,9 +66,9 @@ internal static class ServiceCollectionExtensions
     {
         var provider = new ConfigurationProvider();
         
-        provider.SetupSourceFor<ServiceSettings>(new JsonFileSource("Properties/ServiceSettings.json"));
-        provider.SetupSourceFor<KeycloackSettings>(new JsonFileSource("Properties/KeycloackSettings.json"));
-        provider.SetupSourceFor<SmtpSettings>(new JsonFileSource("Properties/SmtpSettings.json"));
+        provider.SetupSourceFor<ServiceSettings>(new JsonFileSource($"QuickJob.Settings/{nameof(ServiceSettings)}.json"));
+        provider.SetupSourceFor<KeycloackSettings>(new JsonFileSource($"QuickJob.Settings/{nameof(KeycloackSettings)}.json"));
+        provider.SetupSourceFor<SmtpSettings>(new JsonFileSource($"QuickJob.Settings/{nameof(SmtpSettings)}.json"));
         
         services.AddSingleton<IConfigurationProvider>(provider);
     }
