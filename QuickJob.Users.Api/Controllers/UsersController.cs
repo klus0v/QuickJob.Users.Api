@@ -3,9 +3,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Users.Service.Services;
 
-namespace Users.Api.Controllers;
+namespace QuickJob.Users.Api.Controllers;
 
-[Authorize]
 [ApiController]
 [Route("[controller]")]
 public class UsersController : ControllerBase
@@ -17,6 +16,7 @@ public class UsersController : ControllerBase
         this.usersService = usersService;
     }
     
+    [AllowAnonymous]
     [HttpGet("{userId}")]
     public async Task<IActionResult> GetUser(Guid userId)
     {

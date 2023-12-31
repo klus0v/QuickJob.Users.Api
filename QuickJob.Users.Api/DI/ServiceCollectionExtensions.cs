@@ -76,6 +76,7 @@ internal static class ServiceCollectionExtensions
     public static void AddSystemServices(this IServiceCollection services) => services
         .AddDistributedMemoryCache()
         .AddSingleton<IAuthService, AuthService>()
+        .AddSingleton<IUsersService, UsersService>()
         .AddSingleton<IRegistrationService, RegistrationService>();
 
     public static void AddExternalServices(this IServiceCollection services)
