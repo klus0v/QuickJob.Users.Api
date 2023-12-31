@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace QuickJob.Users.Client;
+namespace QuickJob.Users.Client.Models;
 
 internal static class ClientPaths
 {

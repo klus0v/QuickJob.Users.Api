@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using QuickJob.Users.Client.Models;
 
 namespace QuickJob.Users.Client;
 

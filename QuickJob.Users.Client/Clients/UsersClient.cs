@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using QuickJob.Users.DataModel.Api.Responses.Users;
+using QuickJob.Users.Client.Models;
+using QuickJob.Users.Client.Models.Responses;
 
 namespace QuickJob.Users.Client.Clients;
 

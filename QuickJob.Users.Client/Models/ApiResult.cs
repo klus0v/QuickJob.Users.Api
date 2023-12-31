@@ -1,4 +1,4 @@
-namespace QuickJob.Users.Client;
+namespace QuickJob.Users.Client.Models;
 
 public class ApiResult
 {

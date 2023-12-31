@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using QuickJob.Users.Client.Models;
 
 namespace QuickJob.Users.Client;
 

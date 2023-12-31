@@ -2,16 +2,12 @@
 
     <PropertyGroup>
         <TargetFramework>net8.0</TargetFramework>
-        <VersionPrefix>1.0.0</VersionPrefix>
+        <VersionPrefix>1.0.1</VersionPrefix>
         <IsPackable>true</IsPackable>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\QuickJob.Users.DataModel\QuickJob.Users.DataModel.csproj" />
     </ItemGroup>
 
 </Project>

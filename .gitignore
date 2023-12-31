@@ -21,8 +21,8 @@ obj/
 *.userprefs
 
 # Build results
+QuickJob.Settings/
 [Dd]ebug/
-[Ss]ettings/
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
