@@ -5,10 +5,10 @@ namespace QuickJob.Users.Client;
 
 public class QuickJobUsersClient : IQuickJobUsersClient
 {
-    public QuickJobUsersClient(HttpClient httpClient, string apiUrl)
+    public QuickJobUsersClient(HttpClient httpClient)
     {
         var requestSender = new StandaloneRequestSender(httpClient);
-        Users = new UsersClient(requestSender, apiUrl);
+        Users = new UsersClient(requestSender);
     }
 
     public IUsersClient Users { get; }
