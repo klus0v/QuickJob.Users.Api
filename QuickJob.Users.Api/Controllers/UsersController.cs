@@ -20,7 +20,8 @@ public class UsersController : ControllerBase
     [HttpGet("{userId}")]
     public async Task<IActionResult> GetUser(Guid userId)
     {
-        return Ok(await usersService.GetUser(userId.ToString()));
+        var result = await usersService.GetUser(userId.ToString());
+        return Ok(result);
     }
 
     [HttpGet]

@@ -36,7 +36,7 @@ public sealed class UsersService : IUsersService
     public async Task<UserRepresentation> GetUser(string userId)
     {
         var userResponse = (await usersApi.GetUsersAsync(keycloackSettings.RealmName, idpUserId: userId)).FirstOrDefault();
-        if (userResponse != null)
+        if (userResponse == null)
             throw new CustomException("User not found", 404);
 
         return userResponse;
