@@ -1,10 +1,9 @@
-using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QuickJob.Users.DataModel.Api.Requests.Registration;
 using Users.Service.Services;
 
-namespace Users.Api.Controllers;
+namespace QuickJob.Users.Api.Controllers;
 
 [AllowAnonymous]
 [ApiController]

@@ -1,12 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using QuickJob.Users.DataModel.Configuration;
 using Users.Service.Extensions;
 using Users.Service.Services;
-using IConfigurationProvider = Vostok.Configuration.Abstractions.IConfigurationProvider;
 
-namespace Users.Api.Controllers;
+namespace QuickJob.Users.Api.Controllers;
 
 [AllowAnonymous]
 [ApiController]
