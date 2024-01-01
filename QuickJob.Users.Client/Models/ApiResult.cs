@@ -16,7 +16,7 @@ public class ApiResult
     public int StatusCode { get; set; }
     public ErrorResult ErrorResult { get; }
 
-    public bool HasErrorCode(int code) => !IsSuccessful && ErrorResult.ErrorCode.Equals(code);
+    public bool HasErrorCode(int code) => !IsSuccessful && ErrorResult.Code.Equals(code);
 
     public static ApiResult CreateSuccessful(int code) => successfulResult(code);
 
@@ -39,14 +39,14 @@ public class ApiResult<TResponse> : ApiResult
 
 public class ErrorResult
 {
-    public ErrorResult(string errorMessage, int errorCode)
+    public ErrorResult(string message, string code)
     {
-        ErrorMessage = errorMessage;
-        ErrorCode = errorCode;
+        Message = message;
+        Code = code;
     }
 
-    public int ErrorCode { get; set; }
-    public string ErrorMessage { get; set; }
+    public string Code { get; set; }
+    public string Message { get; set; }
 }
 
 
