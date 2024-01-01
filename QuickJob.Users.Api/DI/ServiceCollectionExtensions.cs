@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using QuickJob.Users.Api.Middlewares;
 using QuickJob.Users.DataModel.Configuration;
 using Users.Service.Services;
 using Users.Service.Services.Implementations;
@@ -52,12 +53,12 @@ internal static class ServiceCollectionExtensions
         services.AddSwaggerDocument(doc =>
         {
             doc.Title = "QuickJob.Users.Api";
-            doc.AddSecurity("Bearer", Enumerable.Empty<string>(), new NSwag.OpenApiSecurityScheme
+            doc.AddSecurity("api.key", Enumerable.Empty<string>(), new NSwag.OpenApiSecurityScheme
             {
                 Type = NSwag.OpenApiSecuritySchemeType.ApiKey,
                 Name = "Authorization",
                 In = NSwag.OpenApiSecurityApiKeyLocation.Header,
-                Description = "Type into the textbox: Bearer {your JWT token}."
+                Description = "Type into the textbox: api.key {for your api}."
             });
         });
     }
@@ -92,4 +93,10 @@ internal static class ServiceCollectionExtensions
             .AddSingleton<SmtpClientFactory>()
             .TryAddSingleton(x => x.GetRequiredService<SmtpClientFactory>().GetClient());
     }
+    
+    public static void UseServiceCors(this IApplicationBuilder builder) => 
+        builder.UseCors(FrontSpecificOrigins);
+    
+    public static void UseUnhandledExceptionMiddleware(this IApplicationBuilder builder) => 
+        builder.UseMiddleware<UnhandledExceptionMiddleware>();
 }

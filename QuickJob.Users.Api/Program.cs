@@ -1,8 +1,4 @@
-using System.Text.Json;
-using Microsoft.AspNetCore.Diagnostics;
 using QuickJob.Users.Api.DI;
-
-const string FrontSpecificOrigins = "_frontSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,34 +13,14 @@ builder.Services.AddSystemServices();
 
 var app = builder.Build();
 
-app.UseDeveloperExceptionPage().UseSwaggerUi3().UseOpenApi();
+//app.UseDeveloperExceptionPage()
+app.UseUnhandledExceptionMiddleware();
+app.UseSwaggerUi3().UseOpenApi();
 app.UseHttpsRedirection();
-app.UseExceptionHandler(ConfigureMiddleware());
+app.UseRouting();
+app.UseServiceCors();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-app.UseCors(FrontSpecificOrigins);
 
 app.Run();
-
-
-
-
-//todo костыль
-
-Action<IApplicationBuilder> ConfigureMiddleware() => errorApp =>
-{
-    errorApp.Run(async context =>
-    {
-        var exception = context.Features.Get<IExceptionHandlerFeature>();
-        if (exception != null)
-        {
-            var errorMessage = new { exception.Error.Message };
-            var jsonError = JsonSerializer.Serialize(errorMessage);
-            var statusCode = exception.Error.HResult is > 100 and < 503 ? exception.Error.HResult : 500;
-            context.Response.StatusCode = statusCode;
-            context.Response.ContentType = "application/json";
-            await context.Response.WriteAsync(jsonError);
-        }
-    });
-};
