@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using FS.Keycloak.RestApiClient.Model;
 using QuickJob.Users.Client.Models;
-using QuickJob.Users.Client.Models.Responses;
 
 namespace QuickJob.Users.Client.Clients;
 
@@ -14,6 +14,6 @@ public class UsersClient : IUsersClient
         this.sender = sender;
     }
 
-    public async Task<ApiResult<UserResponse>> GetUserAsync(Guid userId, string accessToken = null) => 
-        await sender.SendRequestAsync<UserResponse>("GET", ClientPaths.User(userId), accessToken);
+    public async Task<ApiResult<UserRepresentation>> GetUserAsync(Guid userId, string accessToken = null) => 
+        await sender.SendRequestAsync<UserRepresentation>("GET", ClientPaths.User(userId), accessToken);
 }
