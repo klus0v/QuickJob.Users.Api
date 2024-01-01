@@ -1,3 +1,4 @@
+using System.Net;
 using System.Net.Http.Headers;
 using FS.Keycloak.RestApiClient.Api;
 using Newtonsoft.Json.Linq;
@@ -61,7 +62,7 @@ public sealed class AuthService : IAuthService
         if (!response.IsSuccessStatusCode)
         {
             log.Warn($" Login error for user: '{username}'");
-            throw new CustomException(jsonResult["error_description"]?.ToString() ?? "", 401);
+            throw new CustomHttpException(HttpStatusCode.Unauthorized, HttpErrors.Keycloack(jsonResult["error_description"]?.ToString() ?? ""));
         }
 
         log.Info($"User with email: '{username ?? "TOKEN"}' login");

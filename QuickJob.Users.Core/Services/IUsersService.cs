@@ -4,7 +4,7 @@ namespace Users.Service.Services;
 
 public interface IUsersService
 {
-    Task<object?> DeleteUser(string userId);
+    Task DeleteUser(string userId);
     Task<UserRepresentation> GetUser(string userId);
-    Task<object?> SearchUsers(string email, string password);
+    Task<UserRepresentation> PatchUser(string userId, UserRepresentation representation);
 }

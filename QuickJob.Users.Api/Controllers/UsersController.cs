@@ -1,5 +1,4 @@
-using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Authorization;
+using FS.Keycloak.RestApiClient.Model;
 using Microsoft.AspNetCore.Mvc;
 using Users.Service.Services;
 
@@ -16,24 +15,24 @@ public class UsersController : ControllerBase
         this.usersService = usersService;
     }
     
-    [AllowAnonymous]
     [HttpGet("{userId}")]
     public async Task<IActionResult> GetUser(Guid userId)
     {
-        var result = await usersService.GetUser(userId.ToString());
-        return Ok(result);
+        var user = await usersService.GetUser(userId.ToString());
+        return Ok(user);
     }
 
-    [HttpGet]
-    public async Task<IActionResult> SearchUsers([FromForm, Required, EmailAddress] string email, [FromForm, Required] string password)
+    [HttpPatch("{userId}")]
+    public async Task<IActionResult> PatchUser(Guid userId, [FromBody] UserRepresentation representation)
     {
-        var loginResult = await usersService.SearchUsers(email, password);
-        return Ok(loginResult);
+        var user = await usersService.PatchUser(userId.ToString(), representation);
+        return Ok(user);
     }
 
     [HttpDelete("{userId}")]
-    public async Task<IActionResult> DeleteUser([FromForm, Required] string userId)
+    public async Task<IActionResult> DeleteUser(Guid userId)
     {
-        return Ok(await usersService.DeleteUser(userId));
+        await usersService.DeleteUser(userId.ToString());
+        return Ok();
     }
 }
