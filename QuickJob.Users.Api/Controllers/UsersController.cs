@@ -1,6 +1,7 @@
 using System.Net;
 using FS.Keycloak.RestApiClient.Model;
 using Microsoft.AspNetCore.Mvc;
+using NSwag.Annotations;
 using QuickJob.Users.DataModel.Configuration;
 using QuickJob.Users.DataModel.Exceptions;
 using Users.Service.Services;
@@ -10,6 +11,7 @@ namespace QuickJob.Users.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
+[SwaggerTag("Эти методы только для внутреннего использования другими апи, для работы с пользователямий исползуй Cabinet.Api")]
 public class UsersController : ControllerBase
 {
     private readonly IUsersService usersService;
