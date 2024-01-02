@@ -1,6 +1,8 @@
 ﻿using System.IO;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using QuickJob.Users.Client.Models;
@@ -9,13 +11,20 @@ namespace QuickJob.Users.Client;
 
 internal class StandaloneRequestSender : IRequestSender
 {
+    private static readonly JsonSerializerOptions Options = new()
+    {
+        PropertyNameCaseInsensitive = true,
+        Converters = {new JsonStringEnumConverter()},
+    };
+    
     private readonly HttpClient standaloneClient;
-    private readonly JsonSerializer serializer;
+    private readonly Newtonsoft.Json.JsonSerializer serializer;
 
     public StandaloneRequestSender(HttpClient standaloneClient)
     {
         this.standaloneClient = standaloneClient;
-        serializer = JsonSerializer.CreateDefault();
+        serializer = Newtonsoft.Json.JsonSerializer.CreateDefault();
+        
     }
 
     public async Task<ApiResult<TResponse>> SendRequestAsync<TResponse>(string httpMethod, string uri, object requestEntity = null) where TResponse : class
