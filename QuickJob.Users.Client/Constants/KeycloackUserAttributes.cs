@@ -1,4 +1,4 @@
-namespace QuickJob.Users.DataModel.Constants;
+namespace QuickJob.Users.Client.Constants;
 
 public class KeycloackUserAttributes
 {

@@ -14,6 +14,12 @@ public class UsersClient : IUsersClient
         this.sender = sender;
     }
 
-    public async Task<ApiResult<UserRepresentation>> GetUserAsync(Guid userId, string accessToken = null) => 
-        await sender.SendRequestAsync<UserRepresentation>("GET", ClientPaths.User(userId), accessToken);
+    public async Task<ApiResult<UserRepresentation>> GetUserAsync(Guid userId) => 
+        await sender.SendRequestAsync<UserRepresentation>("GET", ClientPaths.User(userId));
+
+    public async Task<ApiResult<UserRepresentation>> PatchUserAsync(Guid userId, UserRepresentation request) => 
+        await sender.SendRequestAsync<UserRepresentation>("PATCH", ClientPaths.User(userId), request);
+
+    public async Task<ApiResult> DeleteUserAsync(Guid userId) => 
+        await sender.SendRequestAsync("DELETE", ClientPaths.User(userId));
 }

@@ -11,7 +11,6 @@ namespace QuickJob.Users.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-[SwaggerTag("Эти методы только для внутреннего использования другими апи, для работы с пользователямий исползуй Cabinet.Api")]
 public class UsersController : ControllerBase
 {
     private readonly IUsersService usersService;
@@ -24,6 +23,7 @@ public class UsersController : ControllerBase
     }
     
     [HttpGet("{userId}")]
+    [SwaggerTag("GetUser - только для внутреннего использования другими микросервисами")]
     public async Task<IActionResult> GetUser(Guid userId)
     {
         CheckAccess(HttpContext);
@@ -32,6 +32,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpPatch("{userId}")]
+    [SwaggerTag("PatchUser - только для внутреннего использования другими микросервисами")]
     public async Task<IActionResult> PatchUser(Guid userId, [FromBody] UserRepresentation representation)
     {
         CheckAccess(HttpContext);
@@ -40,6 +41,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpDelete("{userId}")]
+    [SwaggerTag("DeleteUser - только для внутреннего использования другими микросервисами")]
     public async Task<IActionResult> DeleteUser(Guid userId)
     {
         CheckAccess(HttpContext);

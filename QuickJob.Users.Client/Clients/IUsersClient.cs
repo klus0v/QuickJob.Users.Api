@@ -7,5 +7,8 @@ namespace QuickJob.Users.Client.Clients;
 
 public interface IUsersClient
 {
-    Task<ApiResult<UserRepresentation>> GetUserAsync(Guid userId, string accessToken = null);
+    Task<ApiResult<UserRepresentation>> GetUserAsync(Guid userId);
+    Task<ApiResult<UserRepresentation>> PatchUserAsync(Guid userId, UserRepresentation request);
+    Task<ApiResult> DeleteUserAsync(Guid userId);
+
 }
