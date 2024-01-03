@@ -15,6 +15,7 @@
       <PackageReference Include="Schick.Keycloak.RestApiClient" Version="22.0.2" />
       <PackageReference Include="Vostok.Configuration.Abstractions" Version="0.1.15" />
       <PackageReference Include="Vostok.Logging.Abstractions" Version="1.0.30" />
+      <PackageReference Include="QuickJob.Notifications.Client" Version="1.0.0" />
     </ItemGroup>
 
 </Project>

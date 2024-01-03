@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using QuickJob.Notifications.Client;
 using QuickJob.Users.Api.Middlewares;
 using QuickJob.Users.DataModel.Configuration;
+using Users.Service.Registration;
 using Users.Service.Services;
 using Users.Service.Services.Implementations;
 using Vostok.Configuration.Sources.Json;
@@ -69,7 +71,6 @@ internal static class ServiceCollectionExtensions
         
         provider.SetupSourceFor<ServiceSettings>(new JsonFileSource($"QuickJob.Settings/{nameof(ServiceSettings)}.json"));
         provider.SetupSourceFor<KeycloackSettings>(new JsonFileSource($"QuickJob.Settings/{nameof(KeycloackSettings)}.json"));
-        provider.SetupSourceFor<SmtpSettings>(new JsonFileSource($"QuickJob.Settings/{nameof(SmtpSettings)}.json"));
         
         services.AddSingleton<IConfigurationProvider>(provider);
     }
@@ -90,8 +91,8 @@ internal static class ServiceCollectionExtensions
             .AddSingleton(x => x.GetRequiredService<KeycloakFactory>().GetUsersClient())
             .AddSingleton(x => x.GetRequiredService<KeycloakFactory>().GetUserClient());
         services
-            .AddSingleton<SmtpClientFactory>()
-            .TryAddSingleton(x => x.GetRequiredService<SmtpClientFactory>().GetClient());
+            .AddSingleton<NotificationsClientFactory>()
+            .TryAddSingleton<IQuickJobNotificationsClient>(x => x.GetRequiredService<NotificationsClientFactory>().GetClient());
     }
     
     public static void UseServiceCors(this IApplicationBuilder builder) => 

@@ -1,6 +1,8 @@
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QuickJob.Users.DataModel.Api.Requests.Registration;
+using Users.Service.Registration;
 using Users.Service.Services;
 
 namespace QuickJob.Users.Api.Controllers;
@@ -20,17 +22,16 @@ public class RegistrationController : ControllerBase
     }
     
     [HttpPost("request")]
-    public async Task<IActionResult> InitCreteUser([FromBody] InitCreateUserRequest initCreateUserRequest)
+    public async Task<IActionResult> InitCreteUser(InitCreateUserRequest initCreateUserRequest)
     {
-        await registrationService.InitCreateUser(initCreateUserRequest);
-        await authService.Login(initCreateUserRequest.Email, initCreateUserRequest.Password);
-        return Created("registration", null);
+        var response = await registrationService.InitCreateUser(initCreateUserRequest);
+        return Ok(response);
     }
-    //todo add email verification 
-    // [HttpPost("confirm")]
-    // public async Task<IActionResult> ConfirmCreteUser([FromForm, Required, EmailAddress] string email, [FromForm, Required] string password)
-    // {
-    //     var loginResult = await registrationService.ConfirmCreteUser(email, password);
-    //     return Ok(loginResult);
-    // }
+    
+    [HttpPost("confirm")]
+    public async Task<IActionResult> ConfirmCreteUser(ConfirmCreateUserRequest request)
+    {
+        var loginResult = await registrationService.ConfirmCreateUser(request);
+        return Ok(loginResult);
+    }
 }

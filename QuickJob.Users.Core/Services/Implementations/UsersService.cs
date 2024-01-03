@@ -13,12 +13,14 @@ public sealed class UsersService : IUsersService
 {
     private readonly ILog log;
     private readonly IUserApi userApi;
+    private readonly IUsersApi usersApi;
     private readonly KeycloackSettings keycloackSettings;
 
-    public UsersService(ILog log, IConfigurationProvider configurationProvider, IUserApi userApi)
+    public UsersService(ILog log, IConfigurationProvider configurationProvider, IUserApi userApi, IUsersApi usersApi)
     {
         this.log = log;
         this.userApi = userApi;
+        this.usersApi = usersApi;
         keycloackSettings = configurationProvider.Get<KeycloackSettings>();
     }
 
@@ -27,6 +29,17 @@ public sealed class UsersService : IUsersService
         log.Info($"Delete user: {userId}");
         await GetUserInternal(userId);
         await userApi.DeleteUsersByIdAsync(keycloackSettings.RealmName, userId);
+    }
+    
+    public async Task<UserRepresentation> CreateUser(UserRepresentation user)
+    {
+        var result = await usersApi.GetUsersAsync(keycloackSettings.RealmName, username: user.Email);
+        if (result.Count > 0)
+            throw new CustomHttpException(HttpStatusCode.Conflict, HttpErrors.UserAlreadyCreated(user.Email));
+        await usersApi.PostUsersAsync(keycloackSettings.RealmName, user);
+        log.Info($"Create user: {user.Id}");
+        var userResult = await usersApi.GetUsersAsync(keycloackSettings.RealmName, username: user.Email);
+        return userResult.First();
     }
 
     public async Task<UserRepresentation> PatchUser(string userId, UserRepresentation representation)
