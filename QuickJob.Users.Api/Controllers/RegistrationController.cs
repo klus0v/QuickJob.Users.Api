@@ -1,9 +1,7 @@
-using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QuickJob.Users.DataModel.Api.Requests.Registration;
 using Users.Service.Registration;
-using Users.Service.Services;
 
 namespace QuickJob.Users.Api.Controllers;
 
@@ -13,12 +11,11 @@ namespace QuickJob.Users.Api.Controllers;
 public class RegistrationController : ControllerBase
 {
     private readonly IRegistrationService registrationService; 
-    private readonly IAuthService authService; 
+    private const string RefreshTokenKey = "QuickJob_RefreshToken";
     
-    public RegistrationController(IRegistrationService registrationService, IAuthService authService)
+    public RegistrationController(IRegistrationService registrationService)
     {
         this.registrationService = registrationService;
-        this.authService = authService;
     }
     
     [HttpPost("request")]
@@ -32,6 +29,17 @@ public class RegistrationController : ControllerBase
     public async Task<IActionResult> ConfirmCreteUser(ConfirmCreateUserRequest request)
     {
         var loginResult = await registrationService.ConfirmCreateUser(request);
-        return Ok(loginResult);
+        SetCookie(RefreshTokenKey, loginResult.RefreshToken);
+        return Ok(loginResult.AuthResponseBase);
+    }
+    
+    private void SetCookie(string key, string value, bool httpOnly = true)
+    {
+        var options = new CookieOptions
+        {
+            HttpOnly = httpOnly,
+            Path = "auth/login"
+        };
+        HttpContext.Response.Cookies.Append(key, value, options);
     }
 }
