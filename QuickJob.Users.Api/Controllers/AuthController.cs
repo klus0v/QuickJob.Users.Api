@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using QuickJob.Users.DataModel.Api.Responses.Auth;
 using Users.Service.Extensions;
 using Users.Service.Services;
 
@@ -20,6 +21,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("login")]
+    [ProducesResponseType(typeof(AuthResponseBase), StatusCodes.Status200OK)]
     public async Task<IActionResult> Login([FromForm, Required, EmailAddress] string email, [FromForm, Required] string password)
     {
         var loginResult = await authService.Login(email, password);
@@ -29,6 +31,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("token/refresh")]
+    [ProducesResponseType(typeof(AuthResponseBase), StatusCodes.Status200OK)]
     public async Task<IActionResult> RefreshToken()
     {
         if (!TryGetCookie(RefreshTokenKey, out var token))

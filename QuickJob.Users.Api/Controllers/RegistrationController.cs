@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using QuickJob.Users.DataModel.Api.Requests.Registration;
+using QuickJob.Users.DataModel.Api.Responses.Auth;
+using QuickJob.Users.DataModel.Api.Responses.Registration;
 using Users.Service.Registration;
 
 namespace QuickJob.Users.Api.Controllers;
@@ -19,6 +21,7 @@ public class RegistrationController : ControllerBase
     }
     
     [HttpPost("request")]
+    [ProducesResponseType(typeof(InitCreateUserResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> InitCreteUser(InitCreateUserRequest initCreateUserRequest)
     {
         var response = await registrationService.InitCreateUser(initCreateUserRequest);
@@ -26,6 +29,7 @@ public class RegistrationController : ControllerBase
     }
     
     [HttpPost("confirm")]
+    [ProducesResponseType(typeof(AuthResponseBase), StatusCodes.Status200OK)]
     public async Task<IActionResult> ConfirmCreteUser(ConfirmCreateUserRequest request)
     {
         var loginResult = await registrationService.ConfirmCreateUser(request);
