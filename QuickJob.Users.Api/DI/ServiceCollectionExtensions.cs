@@ -25,9 +25,11 @@ internal static class ServiceCollectionExtensions
         var serviceProvider = services.BuildServiceProvider();
         var serviceSettings = serviceProvider.GetRequiredService<IConfigurationProvider>().Get<ServiceSettings>();
 
-        services
+         services
             .AddCors(option => option
-                .AddPolicy(FrontSpecificOrigins, builder => builder.WithOrigins(serviceSettings.Origins.ToArray())
+                //.AddPolicy(FrontSpecificOrigins, builder => builder.WithOrigins(serviceSettings.Origins.ToArray())
+                .AddPolicy(FrontSpecificOrigins, builder => builder
+                    .AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader()));
     }
