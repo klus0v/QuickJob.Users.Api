@@ -50,22 +50,29 @@ public sealed class UsersService : IUsersService
         return await GetUserInternal(userId);
     }
 
-    public async Task<UserRepresentation> GetUser(string userId) => 
-        await GetUserInternal(userId);
+    public async Task<UserRepresentation> GetUser(string userId)
+    {
+        log.Info($"Get user: {userId}");
+        return await GetUserInternal(userId);
+    }
 
     private async Task<UserRepresentation> GetUserInternal(string userId)
     {
         try
         {
             var userResult = await userApi.GetUsersByIdAsync(keycloackSettings.RealmName, userId);
+            log.Info($"found user: {userResult.Id} with email: {userResult.Email}");
+
             return userResult;
         }
         catch (Exception e)
         {
             var error = (ApiException)e;
             if (error.ErrorCode == 404)
+            {
+                log.Info($"Not found user: {userId}");
                 throw new CustomHttpException(HttpStatusCode.NotFound, HttpErrors.NotFound(userId));
-
+            }
             throw new CustomHttpException(error.ErrorCode, HttpErrors.Keycloack(error.Message));
         }
     }
