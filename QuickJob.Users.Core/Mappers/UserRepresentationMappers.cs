@@ -15,6 +15,7 @@ public static class UserRepresentationMappers
             Username = initCreateUserRequest.Email,
             EmailVerified = false,
             Enabled = false,
+            FirstName = initCreateUserRequest.Fio,
             Attributes = new Dictionary<string, List<string>>
             {
                 { KeycloackUserAttributes.Phone, new List<string> { initCreateUserRequest.Phone } },
